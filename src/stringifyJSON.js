@@ -5,7 +5,7 @@
 var stringifyJSON = function(obj) {
     var rv = "";
         
-    if (obj == undefined) {
+    if (obj === null) {
 
         rv += 'null';
         
@@ -29,8 +29,7 @@ var stringifyJSON = function(obj) {
         
         rv += '{';
         for (var k in obj) {
-            console.log("key: "+JSON.stringify(k));
-            if ((k != 'functions') && (k != "undefined")) {
+            if ((k != 'functions') && (obj[k] !== undefined)) {
                 hasValues = true;
                 rv += stringifyJSON(k) + ':';
                 rv += stringifyJSON(obj[k]);
