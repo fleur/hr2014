@@ -44,6 +44,8 @@
       var info    = $('<div class="info"></div>');
       var user    = $('<span class="user"></span>');
       var userURL = $('<a href=#>@'+tweet.user+'</a>');
+      var oparen  = $('<span class="paren">(</span>');
+      var clparen = $('<span class="paren">)</span>');
       var ts      = $('<span class="timestamp" title="'+tweet.created_at.toISOString()+'"></span>');
       var msg     = $('<span class="twit">'+tweet.message+'</span>');
 
@@ -54,8 +56,10 @@
       user.append(userURL);
     
       info.append(user);
+      info.append(oparen);
       info.append(ts);
-    
+      info.append(clparen);
+      
       elt.append(info);
       elt.append(msg);
 
