@@ -162,9 +162,6 @@ var _ = {};
   _.invoke = function(collection, functionOrKey, args) {
       var rv = [];
       
-      console.log("function: " + functionOrKey);
-      console.log("collection: " + JSON.stringify(collection));
-      
       if (typeof(functionOrKey) == "function") {
           for (var i=0; i<collection.length; i++) {
               rv.push(functionOrKey.apply(collection[i]));
@@ -198,7 +195,6 @@ var _ = {};
       var val = (accumulator === undefined) ? collection[0] : accumulator;
       
       for (var key in collection) {
-          console.log(key);
           val = iterator(val, collection[key]);
       }
       
@@ -219,14 +215,43 @@ var _ = {};
 
 
   // Determine whether all of the elements match a truth test.
+  //
+  // 
   _.every = function(collection, iterator) {
     // TIP: Try re-using reduce() here.
+    
+    return _.reduce(collection, function(sum, val) {
+        var rv = true;
+        
+        if (sum == false) {
+            rv = false;
+        } else if (iterator == undefined) {
+            rv = Boolean(val);
+        } else {
+            rv = Boolean(iterator(val));
+        }
+        
+        return rv;
+    }, true);
   };
 
   // Determine whether any of the elements pass a truth test. If no iterator is
   // provided, provide a default one
   _.some = function(collection, iterator) {
     // TIP: There's a very clever way to re-use every() here.
+    var counter = false;
+            
+    _.every(collection, function(val) { 
+        var tmp = (iterator == undefined) ? Boolean(val) : iterator(val);
+
+        if (tmp == true) {
+            counter = true;
+        }
+                
+        return true;
+    });
+    
+    return counter;
   };
 
 
@@ -249,33 +274,28 @@ var _ = {};
   //     bla: "even more stuff"
   //   }); // obj1 now contains key1, key2, key3 and bla
   _.extend = function(obj) {
-      /*
-      for (var i=1; i<=arguments.length; i++) {
-          if (arguments[i] !== undefined) {
-              var tmp = arguments[i];
-              console.log("tmp: " + JSON.stringify(tmp));
-              var keys = Object.keys(tmp);
-              console.log("keys: " + keys);
-              for (var key in keys) {
-              console.log("key: " + key);
-              obj[key] = tmp[key];
+            
+      for (var i=1; i<=arguments.length; i++) {          
+          for (var key in arguments[i]) {
+              obj[key] = arguments[i][key];
           }
-        }
       }
-      */
+      
       return obj;
   };
 
   // Like extend, but doesn't ever overwrite a key that already
   // exists in obj
   _.defaults = function(obj) {
-//      for (var i=1; i<=arguments.length; i++) {
- //         for (var key in Object.keys(obj)) {
-//              if (!key in obj) {
-//                  obj[key] = arguments[key];
-//              }
-//          }
-//      }
+      for (var i=1; i<=arguments.length; i++) {          
+          for (var key in arguments[i]) {
+              if (!(key in obj)) {
+                  obj[key] = arguments[i][key];
+              }
+          }
+      }
+      
+      return obj;
   };
 
 
@@ -317,6 +337,16 @@ var _ = {};
   // already computed the result for the given argument and return that value
   // instead if possible.
   _.memoize = function(func) {
+      var results = { };
+
+      return function(arg) {
+          
+          if (!(arg in results)) {
+              results[arg] = func.call(this, arg);
+          }
+          
+          return results[arg];
+      }
   };
 
   // Delays a function for the given number of milliseconds, and then calls
@@ -326,6 +356,8 @@ var _ = {};
   // parameter. For example _.delay(someFunction, 500, 'a', 'b') will
   // call someFunction('a', 'b') after 500ms
   _.delay = function(func, wait) {
+      var args = Array.prototype.slice.call(arguments, 2);
+      setTimeout(function() { func.apply(this, args); }, wait);
   };
 
 
@@ -340,6 +372,11 @@ var _ = {};
   // input array. For a tip on how to make a copy of an array, see:
   // http://mdn.io/Array.prototype.slice
   _.shuffle = function(array) {
+      var a = array.slice(0);
+
+      a.sort(function() { return Math.round(Math.random()); });
+      
+      return a;
   };
 
 
@@ -361,14 +398,14 @@ var _ = {};
   //
   // Example:
   // _.zip(['a','b','c','d'], [1,2,3]) returns [['a',1], ['b',2], ['c',3], ['d',undefined]]
-  _.zip = function() {
+  _.zip = function() {  
   };
 
   // Takes a multidimensional array and converts it to a one-dimensional array.
   // The new array should contain all elements of the multidimensional array.
   //
   // Hint: Use Array.isArray to check if something is an array
-  _.flatten = function(nestedArray, result) {
+  _.flatten = function(nestedArray, result) {      
   };
 
   // Takes an arbitrary number of arrays and produces an array that contains
