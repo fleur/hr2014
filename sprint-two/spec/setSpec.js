@@ -11,6 +11,16 @@ describe('set', function() {
     expect(set.remove).to.be.a("function");
   });
 
+  it('should not contain a value not added', function() {
+    set.add('a');
+    expect(set.contains('b')).to.equal(false);
+  });
+
+  it('should contain a vallue that was added', function() {
+    set.add('a');
+    expect(set.contains('a')).to.equal(true);
+  });
+
   it('should add values to a set', function(){
     set.add("Susan Sarandon");
     set.add("Danny Glover");
@@ -23,5 +33,6 @@ describe('set', function() {
     set.remove("Mel Gibson");
     expect(set.contains("Mel Gibson")).to.equal(false);
   });
+
 
 });
