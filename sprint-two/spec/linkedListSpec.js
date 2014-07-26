@@ -51,5 +51,28 @@ describe('linkedList', function() {
     expect(linkedList.contains(4)).to.equal(false);
   });
 
-  // add more tests here to test the functionality of linkedList
+  describe('doubly linkedList', function() {
+    // add more tests here to test the functionality of linkedList
+
+    it('should have methods named "addHead", "removeTail"', function() {
+      expect(linkedList.addHead).to.be.a("function");
+      expect(linkedList.removeTail).to.be.a("function");
+    });
+
+    it('value added to head is there', function() {
+      linkedList.addToTail('z');
+      linkedList.addHead('a');
+      linkedList.addHead('b');
+      expect(linkedList.removeHead()).to.equal('b');
+    });
+
+    it('should remove last value', function() {
+      linkedList.addToTail('z');
+      linkedList.addHead('a');
+      linkedList.addHead('b');
+      expect(linkedList.removeTail()).to.equal('z');
+    });
+
+  });
+
 });
