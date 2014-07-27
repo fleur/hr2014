@@ -40,5 +40,23 @@ describe('tree', function() {
     expect(tree.contains(7)).to.equal(true);
     expect(tree.contains(8)).to.equal(true);
   });
+  // these once passed but a computer crash erased our unsaved code
+  describe('tree with parent links', function() {
+    it("tree root's parent should be null", function(){
+      tree.addChild(1);
+      tree.children[0].addChild(2);
+      tree.children[0].addChild(3);
+      tree.children[0].addChild(4);
+      expect(tree.parent).to.be(null);
+    });
+
+    it("children's", function(){
+      tree.addChild(1);
+      tree.children[0].children[0].parent.to.be(tree);
+      tree.children[0].addChild(3);
+      tree.children[0].addChild(4);
+      expect(tree.children[0]).to.be(null);
+    });
+  });
 
 });

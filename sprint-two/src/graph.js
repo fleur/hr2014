@@ -1,23 +1,27 @@
 var Graph = function(){
-  this.storage = [];
+  this.storage = {};
   this.edgeStor = [];
 };
 
 Graph.prototype.addNode = function(newNode, toNode){
-  if (this.storage.length === 1){
-    this.edgeStor.push([this.storage[0],newNode]);
+  var keys = Object.keys(this.storage);
+  if (keys.length === 1){
+
+    // automatically add edge from second node to the first node
+    this.edgeStor.push([keys[0],newNode]);
   }
-  this.storage.push(newNode);
+
+  this.storage[newNode] = true;
 
   if (toNode) {
-    this.storage.push(toNode);
+    this.storage[toNode] = true; // totally unecessary per specs.
     this.edgeStor.push([newNode, toNode]);
   }
 };
 
 Graph.prototype.contains = function(node){
-  for (var i = 0; i < this.storage.length; i++){
-    if (node === this.storage[i]){
+  for (var key in this.storage){
+    if (node === key){
       return true;
     }
   }
@@ -25,10 +29,10 @@ Graph.prototype.contains = function(node){
 };
 
 Graph.prototype.removeNode = function(node){
-  var len = this.storage.length;
-  for (var i = 0; i < len; i++){
-    if (node === this.storage[i]){
-      this.storage.splice(i, 1);
+
+  for (var key in this.storage){
+    if (node === key){
+      delete this.storage[key];
       break;
     }
   }
@@ -49,11 +53,29 @@ Graph.prototype.addEdge = function(fromNode, toNode){
 };
 
 Graph.prototype.removeEdge = function(fromNode, toNode){
+  var deletedEdge = null;
   for (var i = 0; i < this.edgeStor.length; i++){
     if (this.edgeStor[i][0] === fromNode && this.edgeStor[i][1] === toNode){
-       this.edgeStor.splice(i,1);
+       deletedEdge = this.edgeStor.splice(i,1)[0];
        break;
     }
+  }
+  if(deletedEdge) {
+    var edges = this.edgeStor;
+    var isEdgeLess = false;
+
+    _.each(deletedEdge, function(node){
+      isEdgeLess = _.every(edges, function (edge){
+        if (node !== edge[0] && node !== edge[1]){
+          return true;
+        }
+        return false;
+      });
+
+      if (isEdgeLess){
+        delete this.storage[node];
+      }
+    }, this); // sending in the context of Graph for this.storage
   }
 };
 
