@@ -47,15 +47,12 @@ describe('tree', function() {
       tree.children[0].addChild(2);
       tree.children[0].addChild(3);
       tree.children[0].addChild(4);
-      expect(tree.parent).to.be(null);
+      expect(tree.parent).to.equal(null);
     });
 
-    it("children's", function(){
+    it("tree's child's parent should be tree", function(){
       tree.addChild(1);
-      tree.children[0].children[0].parent.to.be(tree);
-      tree.children[0].addChild(3);
-      tree.children[0].addChild(4);
-      expect(tree.children[0]).to.be(null);
+      expect(tree.children[0].parent).to.equal(tree);
     });
   });
 
