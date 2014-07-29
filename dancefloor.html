@@ -21,7 +21,6 @@
     <script>
       $( document ).ready(function() {
         $( ".lineupButton" ).on( "click", function() {
-          console.log('no exclamation', window.dancers.length);
           for (var i = 0; i < window.dancers.length; i++) {
             window.dancers[i].lineup();
           }

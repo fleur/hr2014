@@ -1,6 +1,6 @@
 var SuperheroDancer = function(top, left, timeBetweenSteps){
   Dancer.call(this, top, left, timeBetweenSteps);
-  this.$node = $('<span class="subtledancer"></span>');
+  this.$node = jQuery('<span class="subtledancer"></span>');
   this.setPosition(top, left);
 };
 SuperheroDancer.prototype = Object.create(Dancer.prototype);
