@@ -30,3 +30,27 @@ Dancer.prototype.setPosition = function(top, left){
     };
     this.$node.css(styleSettings);
 };
+
+Dancer.prototype.lineup = function() {
+  this.$node.css("left", 10);
+};
+/*
+Dancer.prototype.move(toX, toY, interval) {
+  var currX = $node.css("left");
+  var currY = $node.css("top");
+  console.log('currX: ', currX, "currY: ", currY);
+
+  //Keep on moving the image till the target is achieved
+  if(currX<toX) newX = currX + interval;
+  if(currY<toY) newY = currY + interval;
+
+  $node.css("top", newY);
+  $node.css("left",newX);
+
+  if ((newX+interval < toX) && (newY+interval < toY)) {
+    //Keep on calling this function every 100 microsecond
+    //  till the target location is reached
+    window.setTimeout(this.move.bind(this, toX, toY, interval),100);
+  }
+};
+  */

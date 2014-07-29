@@ -12,10 +12,21 @@
   <body>
     <div class="topbar">
       <span class="title">object dance party</span>
+      <a href="#" class="lineupButton">lineup!</a>
       <a href="#" class="addDancerButton" data-dancer-maker-function-name="BlinkyDancer">add a blinky dancer</a>
       <a href="#" class="addDancerButton" data-dancer-maker-function-name="SuperheroDancer">add a superhero dancer</a>
       <a href="#" class="addDancerButton" data-dancer-maker-function-name="BatmanDancer">add a batman dancer</a>
     </div>
     <script src="src/init.js"></script>
+    <script>
+      $( document ).ready(function() {
+        $( ".lineupButton" ).on( "click", function() {
+          console.log('no exclamation', window.dancers.length);
+          for (var i = 0; i < window.dancers.length; i++) {
+            window.dancers[i].lineup();
+          }
+        });
+      });
+    </script>
   </body>
 </html>
