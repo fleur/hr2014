@@ -172,7 +172,7 @@
     hasAnyMajorDiagonalConflicts: function() {
       var size = this.get('n');
 
-      for (var i=0; i<size; i++) {
+      for (var i=0 - (size - 1); i<size; i++) {
         if (this.hasMajorDiagonalConflictAt(i)) {
           return true;
         }
@@ -213,7 +213,7 @@
     hasAnyMinorDiagonalConflicts: function() {
       var size = this.get('n');
 
-      for (var i=0; i<size; i++) {
+      for (var i=0; i<size+(size-1); i++) {
         if (this.hasMinorDiagonalConflictAt(i)) {
           return true;
         }
