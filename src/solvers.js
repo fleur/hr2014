@@ -171,48 +171,66 @@ window.findNQueensSolution = function(n) {
 
 // return the number of nxn chessboards that exist, with n queens placed such that none of them can attack each other
 window.countNQueensSolutions = function(n) {
+
   var solutionCount = 0;
-  var size = n;
-  var board = new Board({n:n});
+  var all = (1 << n) - 1;
+  //all = ~all;
 
-  var process = function(rooksToGo) {
-    var x = rooksToGo-1;
 
-    // base case, we've placed all our rooks
-    if (rooksToGo === 0) {
-
-      // we found a board with all n rooks placed
+  var process = function(ld, cols, rd) {
+    if (cols === all) {
       solutionCount++;
       return;
     }
 
-    for (var y = 0; y < size; y++) {
+    // positions in current row where queen can be placed
+    var poss = ~(ld | cols | rd) & all;
 
-      // place rook in a position
-      board.get(x)[y] = 1;
-
-      // check that when we placed the rook there are no conflicts
-      if (board.hasAnyColConflicts() ||
-          board.hasAnyRowConflicts() ||
-          board.hasAnyMinorDiagonalConflicts() ||
-          board.hasAnyMajorDiagonalConflicts() ) {
-
-        // if there was a conflict with
-        // the queen we place, unset it
-        board.get(x)[y] = 0;
-
-      } else {
-
-        // successfully placed a queen
-        process(rooksToGo - 1);
-        board.get(x)[y] = 0;
-      }
+    while (poss) {
+      var bit = poss & -poss;
+      poss -= bit;
+      process ((ld|bit)<<1, cols|bit, (rd|bit)>>1);
     }
+    // iterate over these placements only
   };
-
-
-  process(n);
 
   console.log('Number of solutions for ' + n + ' queens:', solutionCount);
   return solutionCount;
 };
+
+  // var size = n;
+  // var board = new Board({n:n});
+
+  // var process = function(rooksToGo) {
+  //   var x = rooksToGo-1;
+  //   // base case, we've placed all our rooks
+  //   if (rooksToGo === 0) {
+  //     // we found a board with all n rooks placed
+  //     solutionCount++;
+  //     return;
+  //   }
+  //   for (var y = 0; y < size; y++) {
+  //     // place rook in a position
+  //     board.get(x)[y] = 1;
+  //     // check that when we placed the rook there are no conflicts
+  //     if (board.hasAnyColConflicts() ||
+  //         board.hasAnyRowConflicts() ||
+  //         board.hasAnyMinorDiagonalConflicts() ||
+  //         board.hasAnyMajorDiagonalConflicts() ) {
+  //       // if there was a conflict with
+  //       // the queen we place, unset it
+  //       board.get(x)[y] = 0;
+
+  //     } else {
+
+  //       // successfully placed a queen
+  //       process(rooksToGo - 1);
+  //       board.get(x)[y] = 0;
+  //     }
+  //   }
+  // };
+
+
+  // process(n);
+
+
