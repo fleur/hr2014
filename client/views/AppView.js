@@ -11,17 +11,16 @@ var AppView = Backbone.View.extend({
     // ONLY receive change events for the specific property, 'currentSong'
 
     //this.model.on()
-    var context = this;
     var queue = this.model.get('songQueue');
-    queue.on('add', function() {
+    /*queue.on('enqueue', function() {
       console.log("got queue add");
-      context.songQueueView.render();
-    });
+      this.songQueueView.render();
+    }, this);
     queue.on('remove', function() {
       console.log("got queue remove");
-      context.songQueueView.render();
-    });
-
+      this.songQueueView.render();
+    }, this);
+*/
     //event listener for any change in current song
     this.model.on('change:currentSong', function(model){
       //sets URl for the audio player

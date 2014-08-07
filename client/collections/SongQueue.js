@@ -2,10 +2,10 @@
 var SongQueue = Songs.extend({
 
   initialize: function(){
-
   },
 
-  enqueue: function(song){
+  /*add: function(song){
+    this.trigger('add', song);
     console.log(this.length)
     if(this.length === 0){
       song.play();
@@ -14,5 +14,6 @@ var SongQueue = Songs.extend({
       this.unshift(song);
     }
   }
+  */
 
 });
