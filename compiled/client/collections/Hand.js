@@ -54,7 +54,7 @@
     Hand.prototype.dealerScore = function() {
       var score;
       score = this.scores();
-      if ((score[1] != null) && score[1] >= 17) {
+      if ((score[1] != null) && score[1] >= 17 && this.first().revealed) {
         return score[1];
       } else {
         return score[0];

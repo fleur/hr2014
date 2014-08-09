@@ -3,11 +3,12 @@ class window.Wallet extends Backbone.Model
   initialize: ->
     @set 'wallet', 500
     @set 'bet', 0
+    @reset()
 
   bet: (amount) ->
     bet = @get 'bet'
     wallet = @get 'wallet'
-    if 0 < amount <= wallet or -bet <= amount < 0
+    if 0 < amount <= wallet or -bet < amount < 0
       @set 'wallet', wallet - amount
       @set 'bet', bet + amount
 
@@ -21,3 +22,6 @@ class window.Wallet extends Backbone.Model
   tied: ->
     @set 'wallet', @get('wallet') + @get('bet')
     @set 'bet', 0
+
+  reset: ->
+    @bet 10

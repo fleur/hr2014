@@ -22,12 +22,22 @@
     };
 
     WalletView.prototype.initialize = function() {
+      this.model.on('placeBets', (function(_this) {
+        return function() {
+          return _this.showBetting();
+        };
+      })(this));
       this.model.on('change', (function(_this) {
         return function() {
           return _this.render();
         };
       })(this));
       return this.render();
+    };
+
+    WalletView.prototype.showBetting = function() {
+      $('.add').show();
+      return $('.subtract').show();
     };
 
     WalletView.prototype.render = function() {

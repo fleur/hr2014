@@ -34,3 +34,5 @@ class window.App extends Backbone.Model
       dealer.trigger('tie')
       player.trigger('tie')
       wallet.tied()
+
+    wallet.reset()

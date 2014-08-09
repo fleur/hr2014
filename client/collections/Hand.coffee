@@ -34,7 +34,7 @@ class window.Hand extends Backbone.Collection
     # An Ace in the dealer's hand is always counted as 11
     # if possible without the dealer going over 21.
     score = @scores();
-    if (score[1]? and score[1] >= 17)
+    if (score[1]? and score[1] >= 17 and @first().revealed)
       score[1]
     else
       score[0]

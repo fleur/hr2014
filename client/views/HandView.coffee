@@ -7,11 +7,10 @@ class window.HandView extends Backbone.View
     '<span class="result"></span></h2>'
 
   initialize: ->
-    @collection.on 'add remove change', => @render()
+    @collection.on 'add remove change deal', => @render()
     @collection.on 'bust', => @$('.result').text(" BUST")
     @collection.on 'win', => @$('.result').text(" WIN")
     @collection.on 'tie', => @$('.result').text(" TIE")
-    @render()
 
   render: ->
     @$el.children().detach()

@@ -12,34 +12,36 @@
 
     Wallet.prototype.initialize = function() {
       this.set('wallet', 500);
-      return this.set('bet', 0);
+      this.set('bet', 0);
+      return this.reset();
     };
 
     Wallet.prototype.bet = function(amount) {
       var bet, wallet;
       bet = this.get('bet');
       wallet = this.get('wallet');
-      if ((0 < amount && amount <= wallet) || (-bet <= amount && amount < 0)) {
+      if ((0 < amount && amount <= wallet) || (-bet < amount && amount < 0)) {
         this.set('wallet', wallet - amount);
         return this.set('bet', bet + amount);
       }
     };
 
     Wallet.prototype.won = function() {
-      console.log('test1');
       this.set('wallet', 2 * this.get('bet') + this.get('wallet'));
       return this.set('bet', 0);
     };
 
     Wallet.prototype.lost = function() {
-      console.log('test2');
       return this.set('bet', 0);
     };
 
     Wallet.prototype.tied = function() {
-      console.log('test3');
       this.set('wallet', this.get('wallet') + this.get('bet'));
       return this.set('bet', 0);
+    };
+
+    Wallet.prototype.reset = function() {
+      return this.bet(10);
     };
 
     return Wallet;

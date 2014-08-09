@@ -10,7 +10,7 @@
       return AppView.__super__.constructor.apply(this, arguments);
     }
 
-    AppView.prototype.template = _.template('<button class="hit-button">Hit</button> <button class="stand-button">Stand</button> <button class="reset-button" style="display:none;">Reset</button> <div class="player-wallet-container"></div> <div class="player-hand-container"></div> <div class="dealer-hand-container"></div>');
+    AppView.prototype.template = _.template('<button class="hit-button" style="display:none;">Hit</button> <button class="stand-button" style="display:none;">Stand</button> <button class="deal-button">Deal</button> <div class="player-wallet-container"></div> <div class="player-hand-container"></div> <div class="dealer-hand-container"></div>');
 
     AppView.prototype.events = {
       "click .hit-button": function() {
@@ -21,22 +21,38 @@
         this.model.whoWon();
         return this.toggleButtons();
       },
-      "click .reset-button": function() {
-        this.model.deal();
-        this.setListeners();
-        return this.render();
+      "click .deal-button": function() {
+        return this.deal();
       }
     };
 
     AppView.prototype.initialize = function() {
-      this.setListeners();
+      this.playerHandView = new HandView({
+        collection: this.model.get('playerHand')
+      });
+      this.dealerHandView = new HandView({
+        collection: this.model.get('dealerHand')
+      });
+      this.walletView = new WalletView({
+        model: this.model.get('wallet')
+      });
       return this.render();
+    };
+
+    AppView.prototype.deal = function() {
+      this.model.deal();
+      this.setListeners();
+      this.render();
+      $('button').toggle();
+      this.playerHandView.render();
+      return this.dealerHandView.render();
     };
 
     AppView.prototype.toggleButtons = function() {
       $('.hit-button').hide();
       $('.stand-button').hide();
-      return $('.reset-button').show();
+      $('.deal-button').show();
+      return this.walletView.showBetting();
     };
 
     AppView.prototype.setListeners = function() {
@@ -55,17 +71,17 @@
     };
 
     AppView.prototype.render = function() {
+      this.playerHandView = new HandView({
+        collection: this.model.get('playerHand')
+      });
+      this.dealerHandView = new HandView({
+        collection: this.model.get('dealerHand')
+      });
       this.$el.children().detach();
       this.$el.html(this.template());
-      this.$('.player-hand-container').html(new HandView({
-        collection: this.model.get('playerHand')
-      }).el);
-      this.$('.player-wallet-container').html(new WalletView({
-        model: this.model.get('wallet')
-      }).el);
-      return this.$('.dealer-hand-container').html(new HandView({
-        collection: this.model.get('dealerHand')
-      }).el);
+      this.$('.player-wallet-container').html(this.walletView.el);
+      this.$('.player-hand-container').html(this.playerHandView.el);
+      return this.$('.dealer-hand-container').html(this.dealerHandView.el);
     };
 
     return AppView;

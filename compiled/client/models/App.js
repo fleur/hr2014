@@ -33,21 +33,22 @@
       wallet = this.get('wallet');
       if (dealer.dealerScore() > 21) {
         player.trigger('win');
-        return wallet.won();
+        wallet.won();
       } else if (player.playerScore() > 21) {
         dealer.trigger('win');
-        return wallet.lost();
+        wallet.lost();
       } else if (dealer.dealerScore() < player.playerScore()) {
         player.trigger('win');
-        return wallet.won();
+        wallet.won();
       } else if (dealer.dealerScore() > player.playerScore()) {
         dealer.trigger('win');
-        return wallet.lost();
+        wallet.lost();
       } else {
         dealer.trigger('tie');
         player.trigger('tie');
-        return wallet.tied();
+        wallet.tied();
       }
+      return wallet.reset();
     };
 
     return App;

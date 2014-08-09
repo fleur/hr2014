@@ -8,11 +8,13 @@ class window.WalletView extends Backbone.View
     'click .subtract': -> @model.bet(-10)
 
   initialize: ->
+    @model.on 'placeBets', => @showBetting()
     @model.on 'change', => @render()
     @render()
 
+  showBetting: ->
+    $('.add').show();
+    $('.subtract').show()
+
   render: ->
     @$el.html @template @model.attributes
-
-
-
