@@ -3,9 +3,13 @@ class window.Hand extends Backbone.Collection
   model: Card
 
   initialize: (array, @deck, @isDealer) ->
+    # if @isDealer @on 'stand' () => @dealerTurn
 
   hit: ->
-    @add(@deck.pop()).last()
+    last = @add(@deck.pop()).last()
+    if (@isDealer and @dealerScore() > 21) or (@scores()[0] > 21)
+      @trigger('bust', @)
+    last
 
   scores: ->
     # The scores are an array of potential scores.
@@ -18,3 +22,26 @@ class window.Hand extends Backbone.Collection
       score + if card.get 'revealed' then card.get 'value' else 0
     , 0
     if hasAce then [score, score + 10] else [score]
+
+  playerScore: ->
+    score = @scores()
+    if (score[1]? and score[1] <= 21)
+      score[1]
+    else
+      score[0]
+
+  dealerScore: ->
+    # An Ace in the dealer's hand is always counted as 11
+    # if possible without the dealer going over 21.
+    score = @scores();
+    if (score[1]? and score[1] >= 17)
+      score[1]
+    else
+      score[0]
+
+  dealerTurn: ->
+    @.first().flip()
+    if @isDealer
+      until @scores()[1] >= 17 or @scores()[0] >= 17
+        @hit()
+

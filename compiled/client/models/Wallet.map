@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "Wallet.js",
+  "sourceRoot": "../../..",
+  "sources": [
+    "client/models/Wallet.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAAA;AAAA;AAAA"
+}
