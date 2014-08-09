@@ -34,14 +34,14 @@ class window.Hand extends Backbone.Collection
     # An Ace in the dealer's hand is always counted as 11
     # if possible without the dealer going over 21.
     score = @scores();
-    if (score[1]? and score[1] >= 17 and @first().revealed)
+    if (score[1]? and 21 >= score[1] and (@first().revealed or score[1] == 1))
       score[1]
     else
       score[0]
 
   dealerTurn: ->
-    @first().flip()
     if @isDealer
-      until @scores()[1] >= 17 or @scores()[0] >= 17
+      @first().flip()
+      until @dealerScore() >= 17
         @hit()
 
