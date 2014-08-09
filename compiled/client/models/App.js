@@ -11,8 +11,8 @@
     }
 
     App.prototype.initialize = function() {
-      var deck;
-      this.set('deck', deck = new Deck());
+      this.set('deck', new Deck());
+      this.set('wallet', new Wallet());
       return this.deal();
     };
 
@@ -27,20 +27,26 @@
     };
 
     App.prototype.whoWon = function() {
-      var dealer, player;
+      var dealer, player, wallet;
       dealer = this.get('dealerHand');
       player = this.get('playerHand');
+      wallet = this.get('wallet');
       if (dealer.dealerScore() > 21) {
-        return player.trigger('win');
+        player.trigger('win');
+        return wallet.won();
       } else if (player.playerScore() > 21) {
-        return dealer.trigger('win');
+        dealer.trigger('win');
+        return wallet.lost();
       } else if (dealer.dealerScore() < player.playerScore()) {
-        return player.trigger('win');
+        player.trigger('win');
+        return wallet.won();
       } else if (dealer.dealerScore() > player.playerScore()) {
-        return dealer.trigger('win');
+        dealer.trigger('win');
+        return wallet.lost();
       } else {
         dealer.trigger('tie');
-        return player.trigger('tie');
+        player.trigger('tie');
+        return wallet.tied();
       }
     };
 

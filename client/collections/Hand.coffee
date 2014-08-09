@@ -40,7 +40,7 @@ class window.Hand extends Backbone.Collection
       score[0]
 
   dealerTurn: ->
-    @.first().flip()
+    @first().flip()
     if @isDealer
       until @scores()[1] >= 17 or @scores()[0] >= 17
         @hit()

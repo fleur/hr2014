@@ -12,7 +12,7 @@
 
     HandView.prototype.className = 'hand';
 
-    HandView.prototype.template = _.template('<h2><% if(isDealer){ %>Dealer<% }else{ %>You<% } %> (<span class="score"></span>)' + ' <span class="result"></span></h2>');
+    HandView.prototype.template = _.template('<h2><% if(isDealer){ %>Dealer<% }else{ %>You<% } %> (<span class="score"></span>)' + '<span class="result"></span></h2>');
 
     HandView.prototype.initialize = function() {
       this.collection.on('add remove change', (function(_this) {
@@ -22,17 +22,17 @@
       })(this));
       this.collection.on('bust', (function(_this) {
         return function() {
-          return _this.$('.result').text("BUST");
+          return _this.$('.result').text(" BUST");
         };
       })(this));
       this.collection.on('win', (function(_this) {
         return function() {
-          return _this.$('.result').text("WIN");
+          return _this.$('.result').text(" WIN");
         };
       })(this));
       this.collection.on('tie', (function(_this) {
         return function() {
-          return _this.$('.result').text("TIE");
+          return _this.$('.result').text(" TIE");
         };
       })(this));
       return this.render();
