@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>chatterbox</title>
+<!--     <link rel="stylesheet" href="styles/styles.css">
+ -->    <link href="bower_components/bootstrap/dist/css/darkly-theme.css" rel="stylesheet">
+
+    <!-- dependencies -->
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="lib/jquery.timeago.js" type="text/javascript"></script>
+    <script src="bower_components/underscore/underscore.js"></script>
+    <!-- your scripts -->
+    <script src="scripts/config.js"></script>
+    <script src="scripts/app.js"></script>
+  </head>
+  <body>
+    <div class="container">
+        <div class="col-md-2 col-xs-2 chatrooms">
+          <button type="button" class="btn btn-info available-rooms">static</button>
+        </div>
+
+        <!-- <h1>chatterbox</h1> -->
+        <div class="col-md-8 col-xs-8">
+          <h2>Current Chatroom: Lobby</h2>
+          <div class="row">
+            <div class="panel panel-default feed">
+
+            </div>
+              <div class="input-group">
+                <!-- <form class="messagebox"> -->
+                  <input type="text" class="form-control messagebox" autofocus>
+                    <span class="input-group-btn">
+                      <button class="btn btn-primary message-submit" type="button">Submit</button>
+                    </span>
+                <!-- </form> -->
+              </div>
+          </div>
+        </div>
+
+        <div class="col-md-2 col-xs-2  friends-list">
+           <p class='btn btn-default removeFriend'> Friends </p>
+        </div>
+    </div>
+  </body>
+</html>

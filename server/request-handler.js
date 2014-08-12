@@ -13,7 +13,11 @@ var fs = require("fs");
 // };
 
 exports.initializeData = function(string){
-  exports.data = JSON.parse(string);
+  if (string !== undefined) {
+    exports.data = JSON.parse(string);
+  } else {
+    exports.data = { results : [] };
+  }
 }
 
 exports.handler = function(request, response) {
