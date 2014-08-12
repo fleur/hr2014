@@ -6,33 +6,15 @@
  * *Hint* Check out the node module documentation at http://nodejs.org/api/modules.html. */
 var url = require("url");
 var _ = require("underscore");
+var fs = require("fs");
 
-exports.data = {
-  results: [
-    // {
-    //   text: "hello world",
-    //   username: "Jack",
-    //   createdAt: new Date(),
-    //   roomname: "Lobby",
-    //   objectId: "000"
-    // },
-    // {
-    //   text: "hello wowowwowow",
-    //   username: "Fleur",
-    //   createdAt: new Date(),
-    //   roomname: "Room 1",
-    //   objectId: "001"
-    // },
-    // {
-    //   text: "foo",
-    //   username: "Ben",
-    //   createdAt: new Date(),
-    //   roomname: "Room 2",
-    //   objectId: "002"
-    // }
-  ]
-};
+// exports.data = {
+//   results: []
+// };
 
+exports.initializeData = function(string){
+  exports.data = JSON.parse(string);
+}
 
 exports.handler = function(request, response) {
   /* the 'request' argument comes from nodes http module. It includes info about the
@@ -41,8 +23,7 @@ exports.handler = function(request, response) {
   /* Documentation for both request and response can be found at
    * http://nodemanual.org/0.8.14/nodejs_ref_guide/http.html */
 
-
-  // console.log("Serving request type " + request.method + " for url " + request.url);
+  console.log("Serving request type " + request.method + " for url " + request.url);
 
   var statusCode = 200;
 
@@ -64,56 +45,54 @@ exports.handler = function(request, response) {
      if (request.method === "GET"){
         exports.handleGet(response, parsedUrl.query, headers);
      } else if (request.method === "POST") {
-        // response.end(exports.handlePost(req, res));
         exports.handlePost(request, response, headers);
      } else if (request.method === "OPTIONS") {
         response.writeHead(200, headers);
         response.end();
      } else {
         response.writeHead(404, headers);
-        response.end("<html><body>Nope.</body></html>");
+        response.end("Nope.");
      }
    } else {
     response.writeHead(404, headers);
-    response.end("<html><body>Nope.</body></html>");
+    response.end("Nope.");
    }
 };
 
 
 exports.handleGet = function(res, query, headers){
-    var rv = exports.data;
+  var rv = exports.data;
 
-    res.writeHead(200, headers);
+  res.writeHead(200, headers);
 
-    if (query["order"]) {
-      var direction = '+';
-      var key = query["order"];
-      if (key[0] === '-') {
-        direction = '-';
-        key = key.slice(1);
+  if (query["order"]) {
+    var direction = '+';
+    var key = query["order"];
+    if (key[0] === '-') {
+      direction = '-';
+      key = key.slice(1);
+    }
+
+    exports.data.results.sort(function(a, b) {
+      if (direction === '+') {
+        a[key] - b[key];
+      } else {
+        b[key] - a[key];
       }
+    });
+  }
 
-      exports.data.results.sort(function(a, b) {
-        if (direction === '+') {
-          a[key] - b[key];
-        } else {
-          b[key] - a[key];
-        }
-      });
-    }
+    // we're hardcoding the roomname key
+    // deal
+  if (query["where[roomname]"]) {
+    var val = query["where[roomname]"];
+    var data = _.filter(exports.data.results, function(item) {
+      return (item["roomname"] == val);
+    });
+    rv = {results: data};
+  }
 
-      // we're hardcoding the roomname key
-      // deal
-    if (query["where[roomname]"]) {
-      var val = query["where[roomname]"];
-      var data = _.filter(exports.data.results, function(item) {
-        return (item["roomname"] == val);
-      });
-      rv = {results: data};
-    }
-
-    res.end(JSON.stringify(rv));
-
+  res.end(JSON.stringify(rv));
 };
 
 exports.handlePost = function(req, res, headers){
@@ -123,11 +102,12 @@ exports.handlePost = function(req, res, headers){
   });
   req.on("end", function(){
     res.writeHead(201, headers);
-    console.log("res.statusCode: ", res.statusCode);
     var rv = JSON.parse(received);
     rv["createdAt"] = new Date();
     exports.data.results.push(rv);
-    // console.log("I am updated Data...", exports.data)
+    fs.writeFile("./data.json", JSON.stringify(exports.data), function(err){
+      if (err){ throw err }
+    });
     res.end();
   });
 }
