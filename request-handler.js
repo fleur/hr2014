@@ -7,6 +7,7 @@
 var url = require("url");
 var _ = require("underscore");
 var fs = require("fs");
+// var process = require('process');
 
 // exports.data = {
 //   results: []
@@ -18,7 +19,41 @@ exports.initializeData = function(string){
   } else {
     exports.data = { results : [] };
   }
-}
+};
+
+exports.serveStaticFile = function(response, filename) {
+  var ext = filename.substr(filename.lastIndexOf('.')+1);
+  console.log("extension: " + ext);
+
+  var contentType = 'text/html';
+  switch (ext) {
+    case 'html' : contentType = 'text/html';              break;
+    case 'css' :  contentType = 'text/css';               break;
+    case 'js':    contentType = 'application/javascript'; break;
+    default:      contentType = 'text/plain';             break;
+  }
+
+  if (fs.existsSync(filename)) {
+
+    fs.readFile(filename, function(error, content) {
+      if (error) {
+        response.writeHead(500);
+        response.end();
+      }
+      else {
+        console.log("we read the file: " + filename);
+        response.writeHead(200, { 'Content-Type': contentType });
+        response.end(content, 'utf-8');
+      }
+    });
+
+  } else {
+    response.writeHead(404, headers);
+    response.end("Page not found");
+  }
+
+};
+
 
 exports.handler = function(request, response) {
   /* the 'request' argument comes from nodes http module. It includes info about the
@@ -45,22 +80,46 @@ exports.handler = function(request, response) {
    * response.end() will be the body of the response - i.e. what shows
    * up in the browser.*/
 
-   if (parsedUrl.pathname.indexOf("/classes/") !== -1) {
-     if (request.method === "GET"){
-        exports.handleGet(response, parsedUrl.query, headers);
-     } else if (request.method === "POST") {
-        exports.handlePost(request, response, headers);
-     } else if (request.method === "OPTIONS") {
-        response.writeHead(200, headers);
-        response.end();
-     } else {
-        response.writeHead(404, headers);
-        response.end("Nope.");
-     }
-   } else {
-    response.writeHead(404, headers);
-    response.end("Nope.");
-   }
+  if (parsedUrl.pathname.indexOf("/classes/") !== -1) {
+    if (request.method === "GET"){
+      exports.handleGet(response, parsedUrl.query, headers);
+    } else if (request.method === "POST") {
+      exports.handlePost(request, response, headers);
+    } else if (request.method === "OPTIONS") {
+      response.writeHead(200, headers);
+      response.end();
+    } else {
+      response.writeHead(404, headers);
+      response.end("Nope.");
+    }
+  } else {
+    var filename = __dirname+'/index.html';
+
+    if (parsedUrl.pathname && parsedUrl.pathname.length > 1) {
+      filename = __dirname+parsedUrl.pathname;
+    }
+    //var filename = (parsedUrl.pathname == '/') ? __dirname+'/index.html' : parsedUrl.pathname;
+    console.log("filename to serve: ", filename);
+    exports.serveStaticFile(response, filename);
+    // if (fs.existsSync(filename)) {
+
+    //   fs.readFile(filename, function(error, content) {
+    //     if (error) {
+    //       response.writeHead(500);
+    //       response.end();
+    //     }
+    //     else {
+    //       console.log("we read the file: " + filename);
+    //       response.writeHead(200, { 'Content-Type': 'text/html' });
+    //       response.end(content, 'utf-8');
+    //     }
+    //   });
+
+    // } else {
+    //   response.writeHead(404, headers);
+    //   response.end("Page not found");
+    // }
+  }
 };
 
 

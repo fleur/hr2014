@@ -8,10 +8,11 @@ var fs = require("fs");
 // we're
 var port = process.env.PORT || 3000;
 // var ip = "127.0.0.1";
+var messageData;
 if (fs.existsSync("./data.json")){
-  var messageData = fs.readFileSync("./data.json", 'utf8');
-  rh.initializeData(messageData);
+  messageData = fs.readFileSync("./data.json", 'utf8');
 }
+rh.initializeData(messageData);
 
 /* We use node's http module to create a server. Note, we called it 'server', but
 we could have called it anything (myServer, blahblah, etc.). The function we pass it (handleRequest)
