@@ -21,10 +21,9 @@ dbConnection.connect();
 
 
 exports.findAllMessages = function(cb){
-  var query = 'SELECT users.username, messages.message, rooms.roomname '+
-    'FROM messages, users, rooms ' +
-    'WHERE messages.users_id = users.id AND ' +
-    'messages.rooms_id = rooms.id';
+  var query = 'SELECT users.username, messages.message, messages.roomname '+
+    'FROM messages, users ' +
+    'WHERE messages.users_id = users.id';
   dbConnection.query(query, function(error, result) {
     if (error) {
       console.log(error);
@@ -43,7 +42,6 @@ exports.saveUser = function(username, cb){
   var query = 'INSERT INTO users SET ?'
   dbConnection.query(query, {'username': username}, function(error, result) {
     if (error) console.log(error);
-    console.log('result of saveUser',result)
     cb([{id: result.insertId}]);
   });
 };

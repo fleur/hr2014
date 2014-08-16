@@ -12,27 +12,17 @@ CREATE TABLE users (
 );
 INSERT INTO users (username) VALUES ('system');
 
-DROP TABLE IF EXISTS rooms;
-CREATE TABLE rooms (
-  id INT(11) NOT NULL AUTO_INCREMENT,
-  roomname varchar(20),
-  PRIMARY KEY (id)
-);
-INSERT INTO rooms (roomname) VALUES ('lobby');
-
 DROP TABLE IF EXISTS messages;
 CREATE TABLE messages (
   id INT(11) NOT NULL AUTO_INCREMENT,
   message text,
   users_id INT(11) NOT NULL,
-  rooms_id INT(11) NOT NULL,
+  roomname varchar(20) NOT NULL default 'lobby',
   PRIMARY KEY (id),
-  FOREIGN KEY (users_id) REFERENCES users(id) ON DELETE CASCADE,
-  FOREIGN KEY (rooms_id) REFERENCES rooms(id) ON DELETE CASCADE
+  FOREIGN KEY (users_id) REFERENCES users(id) ON DELETE CASCADE
 );
-INSERT INTO messages (message, users_id, rooms_id)
-  VALUES ('Im a message', (SELECT id from users WHERE username='system'),
-    (SELECT id from rooms WHERE roomname='lobby'));
+INSERT INTO messages (message, users_id)
+  VALUES ('Im a message', (SELECT id from users WHERE username='system'));
 
 DROP TABLE IF EXISTS friends;
 CREATE TABLE friends (

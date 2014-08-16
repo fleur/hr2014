@@ -20,10 +20,8 @@ var router = function(req, res) {
 
   if (path === '/classes/messages') {
     if (method === 'POST') {
-      console.log('got POST request');
       handlers.postMessage(req, res);
     } else if (method === 'GET') {
-      console.log("got GET request");
       handlers.getMessages(req, res);
     } else if (method === 'OPTIONS') {
       handlers.sendOptionsResponse(req, res);
