@@ -39,12 +39,18 @@ exports.findUser = function(username, cb){
 };
 
 exports.saveUser = function(username, cb){
-  var query = 'INSERT INTO users SET ?'
-  dbConnection.query(query, {'username': username}, function(error, result) {
+  var query = 'INSERT INTO users SET ?';
+  dbConnection.query(query, {username: username}, function(error, result) {
     if (error) console.log(error);
     cb([{id: result.insertId}]);
   });
 };
 
 exports.saveMessage = function(message, userid, roomname, cb){
+  var query = 'INSERT INTO messages SET ?';
+  var data = {message: message, users_id: userid, roomname: roomname};
+  dbConnection.query(query, data, function(error, result) {
+    if (error) console.log(error);
+    cb(error, result);
+  });
 };
