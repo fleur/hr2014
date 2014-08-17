@@ -14,9 +14,10 @@ var archive = require(path.join(__dirname, '../helpers/archive-helpers.js'));
 //   user: "root",
 //   database: "web_historian"
 // });
+var mongodb = require("mongodb");
 
 var server = new mongodb.Server("127.0.0.1", 27017, {});
-var client = new mongodb.Db('web-historian', server);
+var client = new mongodb.Db('archive', server);
 var collection;
 
 client.open(function(err, p_client) {
@@ -26,13 +27,15 @@ client.open(function(err, p_client) {
   console.log("Connected to MongoDB!");
 
   // Create a collection, if it doesn't exist already:
-  client.createCollection("archived-sites", function(err, col) {
+  client.createCollection("sites", function(err, col) {
     if (err) {
       console.log("failed to create or get collection: ", err)
     }
     console.log("Created collection");
     collection = col;
-}
+  });
+
+});
 
 var handleGet = function(req, res) {
   var parsedUrl = url.parse(req.url);
@@ -46,9 +49,26 @@ var handleGet = function(req, res) {
 
   } else {
 
-    var hash = crypto.Crypto.SHA1(parsedUrl.pathname.substr(1));
-    var siteName = archive.paths.archivedSites + hash + '.html';
-    httpHelper.serveAssets(res, siteName);
+    // check collection for url
+    console.log("checking for: ", parsedUrl.pathname.slice(1));
+    collection.find({ url: parsedUrl.pathname.slice(1),
+                      pageSource : { "$exists" : true } }).toArray(function(err, results) {
+      if (err) { console.log("toArray failed: ", err); return; }
+
+      // if url is there, serve up contents
+      console.log(results[0]);
+      if (results.length > 0) {
+
+        // return results.pageSource
+        res.writeHead(200, { 'Content-Type': 'text/html' });
+        res.end(results[0].pageSource);
+
+      } else {
+
+        res.writeHead(400);
+        res.end("Page Not Found");
+      }
+    });
   }
 };
 
@@ -62,11 +82,11 @@ var handlePost = function(req, res) {
     body = body.substr(4);
     body = decodeURIComponent(body);
 
-    // check to see if we already have the requested static file archived
-    // if so, serve it up
-    var post = { url: body, downloaded: 'false' };
-    connection.query('INSERT INTO Sites SET ?', post, function(error) {
-      if (error) {
+    collection.insert({ url: body }, function(err, results) {
+
+      // check to see if we already have the requested static file aor) {
+      if (err) {
+        console.log("error adding url: " , err);
         res.writeHead(500, "Insert to database failed");
         res.end("Server Error");
       } else {
