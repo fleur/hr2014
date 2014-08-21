@@ -1,3 +1,10 @@
 <div id='container'>
-  <!-- Your html here -->
+  <table>
+   <tr ng-repeat="link in data.links">
+   <td>{{ link.title }}</td>
+   <td>
+      <a href="{{ link.base_url }}/api/links/{{ link.code }}">{{ link.base_url }}/api/links/{{ link.code }}</a>
+   </td>
+   </tr>
+  </table>
 </div>
