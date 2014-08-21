@@ -10,7 +10,7 @@ angular.module('shortly.services', [])
     .then(function(resp) {
       return resp.data;
     });
-  }
+  };
    var postNewLink = function(url) {
     return $http({
       method: 'POST',
@@ -20,8 +20,8 @@ angular.module('shortly.services', [])
     })
     .then(function(resp) {
       return resp.data;
-    })
-  }
+    });
+  };
 
    return {
     getAllLinks: getAllLinks,

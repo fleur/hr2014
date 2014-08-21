@@ -24,7 +24,7 @@ angular.module('shortly', [
       controller: 'ShortenController',
     })
     .otherwise({
-      redirectTo: '/api/links/code',
+      redirectTo: '/links',
     });
     // We add our $httpInterceptor into the array
     // of interceptors. Think of it like middleware for your ajax calls
