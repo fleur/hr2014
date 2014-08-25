@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+    <style>
+
+      body {
+        font: 10px sans-serif;
+      }
+
+      .axis path,
+      .axis line {
+        fill: none;
+        stroke: #000;
+        shape-rendering: crispEdges;
+      }
+
+      .area {
+        fill: steelblue;
+      }
+    </style>
+  </head>
+<body>
+  <script src="http://d3js.org/d3.v3.js"></script>
+  <script src="bower_components/jquery/dist/jquery.js"></script>
+  <script src="bower_components/underscore/underscore.js"></script>
+  <script src="query.js"></script>
+  <script src="display.js"></script>
+ 
+
+  <input id="ticker"></input><button name="submit">Graph</button>
+
+  <script>
+    $(document).ready(function(){
+
+     //set up listener to get stock tickers for graphing
+     $("button").on('click', function() {
+
+      var ticker = $("#ticker").val().split(",").map(function(value) { return value.trim(); });
+      console.log("ticker: ", ticker);
+      ticker.forEach(function(ticker) {
+        getData(ticker, displayGraph);
+      });
+
+
+     });
+  });
+  </script>
+</body>
