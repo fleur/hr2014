@@ -44,7 +44,7 @@ app.get('/api/ticker', function(req, res) {
 
   childProcess.execFile(binPath, childArgs, function(err, stdout, stderr) {
 
-    console.log(stdout);
+    //console.log(stdout);
     res.send(stdout);
     res.end();
   });
@@ -53,8 +53,8 @@ app.get('/api/ticker', function(req, res) {
 });
 
 app.get('/*', function(req, res) {
-  res.send(404);
-  res.end();
+  //console.log("requested: " , req.path);
+  res.sendFile(path.join(__dirname, req.path));
 });
 
 

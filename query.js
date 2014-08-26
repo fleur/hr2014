@@ -33,11 +33,15 @@ var getData = function(ticker, cb) {
 
 var scrapeMagic = function() {
 
+  console.log("scraping /api/ticker");
   $.ajax({
 
-    url: "/magic.html",
+    url: "/api/ticker",
 
   }).done(function(output) {
+
+    console.log(output);
+
     var ticker = [];
     var rows = $(output).find("#report").find("tbody").children();
 
