@@ -77,7 +77,7 @@ page.onLoadFinished = function() {
       if (!status) {
         console.log("timed out waiting for report to load: ", status);
       }
-      page.render("pjsfinal.png");
+      //page.render("pjsfinal.png");
       console.log(page.content);
       phantom.exit();
     });

@@ -13,7 +13,7 @@ var getPercentIncrease = function(data) {
 
 var displayGraph = function(error, ticker, data) {
 
-	var margin = {top: 20, right: 20, bottom: 30, left: 50},
+	var margin = {top: 20, right: 40, bottom: 30, left: 50},
 	width = 480 - margin.left - margin.right,
 	height = 250 - margin.top - margin.bottom;
 
@@ -40,12 +40,14 @@ var displayGraph = function(error, ticker, data) {
 	.y0(height)
 	.y1(function(d) { return y(d.Close); });
 
-	var $table = $("table");
-	var $trow = $("<tr id=\""+ticker+"\"></tr>");
-	var $tdata = $("<td></td>");
+	//var $table = $("table");
+	//var $trow = $("<tr id=\""+ticker+"\"></tr>");
+	//var $tdata = $("<td></td>");
 
-	$table.append($trow);
-	$trow.append($tdata);
+	//$table.append($trow);
+	//$trow.append($tdata);
+
+	$("#container").append("<div id=\""+ticker+"\" class=\"col-md-4\"></div>");
 
 	var svg = d3.select("#"+ticker).append("svg")
 	.attr("id", ticker)
@@ -84,11 +86,12 @@ var displayGraph = function(error, ticker, data) {
 	.style("text-anchor", "end")
 	.text("Price ($)");
 
-	var $change = $("<td></td>");
+	var $change = $("<div class=\"col-md-2\"></div>");
 	$change.text(ticker+": "+getPercentIncrease(data) + "%");
-	$trow.append($change);
+	// $trow.append($change);
 
-
+	//$("#"+ticker).append($change);
+	$("#container").append($change);
 
 
 

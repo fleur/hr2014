@@ -19,30 +19,37 @@
         fill: steelblue;
       }
     </style>
-  </head>
+    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
 <body>
   <script src="http://d3js.org/d3.v3.js"></script>
   <script src="bower_components/jquery/dist/jquery.js"></script>
   <script src="bower_components/underscore/underscore.js"></script>
+  <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
   <script src="query.js"></script>
   <script src="display.js"></script>
 
-
+  <div class="jumbotron">
+  <p>recent Magic Formula stock performance</p>
   <input id="ticker"><button name="submit">Graph</button>
+  </div>
 
   <table>
   </table>
 
+  <div id="container"></div>
+
   <script>
     $(document).ready(function(){
 
-      scrapeMagic();
+      //scrapeMagic();
 
      //set up listener to get stock tickers for graphing
      $("button").on('click', function() {
 
       var ticker = $("#ticker").val().split(",").map(function(value) { return value.trim(); });
-      $("table").html("");
+      //$("table").html("");
+      $("#container").html("");
       ticker.forEach(function(ticker) {
         getData(ticker, displayGraph);
       });
