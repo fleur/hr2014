@@ -36,11 +36,12 @@
   <script>
     $(document).ready(function(){
 
+      scrapeMagic();
+
      //set up listener to get stock tickers for graphing
      $("button").on('click', function() {
 
       var ticker = $("#ticker").val().split(",").map(function(value) { return value.trim(); });
-      console.log("ticker: ", ticker);
       $("table").html("");
       ticker.forEach(function(ticker) {
         getData(ticker, displayGraph);

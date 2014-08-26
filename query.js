@@ -31,32 +31,31 @@ var getData = function(ticker, cb) {
 };
 
 
-var parseMagic = function() {
+var scrapeMagic = function() {
 
   $.ajax({
+
     url: "/magic.html",
-    data: {
-      q: qTmpl({ticker: ticker}),
-      format: 'json'
-    },
-    // beforeSend: function (jqXHR, settings) {
-    //   url = settings.url + "?" + settings.data;
-    //   console.log(url);
-    // },
+
   }).done(function(output) {
+    var ticker = [];
+    var rows = $(output).find("#report").find("tbody").children();
 
-    var data = output.query.results.quote;
-    //console.log(output);
+    // gather an array of all the ticker symbols
+    rows.each(function(err, value) {
+      // ticker symbol in the 2nd td element
+      var $cells = $(value).find("td");
+      ticker.push($($cells[1]).text());
+    });
 
-    cb(null, ticker, data);
+    // prepopulate the input box with a list
+    // of all the ticker symbols we scraped
+    $("#ticker").val(ticker.join(','));
 
   }).fail(function(err) {
 
     console.log('the thing failed with an error');
     console.log(err.responseText);
-    cb(err.responseText, ticker, null);
   });
 
 };
-
-//http://query.yahooapis.com/v1/public/yql?diagnostics=true&env=store://datatables.org/alltableswithkeys&format=json&q=select+Symbol%2CDate%2CClose+from+yahoo.finance.historicaldata+where+symbol+%3D+%22GOOG%22+and+startDate+%3D+%222013-02-11%22+and+endDate+%3D+%222014-02-18%22&format=json?undefined
