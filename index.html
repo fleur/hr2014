@@ -26,9 +26,12 @@
   <script src="bower_components/underscore/underscore.js"></script>
   <script src="query.js"></script>
   <script src="display.js"></script>
- 
 
-  <input id="ticker"></input><button name="submit">Graph</button>
+
+  <input id="ticker" value="APOL,AGX"><button name="submit">Graph</button>
+
+  <table>
+  </table>
 
   <script>
     $(document).ready(function(){
@@ -38,6 +41,7 @@
 
       var ticker = $("#ticker").val().split(",").map(function(value) { return value.trim(); });
       console.log("ticker: ", ticker);
+      $("table").html("");
       ticker.forEach(function(ticker) {
         getData(ticker, displayGraph);
       });

@@ -1,12 +1,21 @@
 
 
+var getPercentIncrease = function(data) {
+	//console.log(data);
+  var prices = _.map(data, function(value) { return value['Close']; });
+  var latest = prices[0];
+  var earliest = prices[prices.length-1];
+
+  return Math.round(((latest - earliest)/earliest) * 100);
+};
+
 /* ripped off directly from mbostock's example */
 
 var displayGraph = function(error, ticker, data) {
 
 	var margin = {top: 20, right: 20, bottom: 30, left: 50},
-	width = 960 - margin.left - margin.right,
-	height = 500 - margin.top - margin.bottom;
+	width = 480 - margin.left - margin.right,
+	height = 250 - margin.top - margin.bottom;
 
 	var parseDate = d3.time.format("%y-%b-%d").parse;
 
@@ -19,6 +28,8 @@ var displayGraph = function(error, ticker, data) {
 	var xAxis = d3.svg.axis()
 	.scale(x)
 	.orient("bottom");
+	//.ticks(d3.time.months, 2)
+  //.tickFormat(d3.time.format("%b"));
 
 	var yAxis = d3.svg.axis()
 	.scale(y)
@@ -29,7 +40,14 @@ var displayGraph = function(error, ticker, data) {
 	.y0(height)
 	.y1(function(d) { return y(d.Close); });
 
-	var svg = d3.select("body").append("svg")
+	var $table = $("table");
+	var $trow = $("<tr id=\""+ticker+"\"></tr>");
+	var $tdata = $("<td></td>");
+
+	$table.append($trow);
+	$trow.append($tdata);
+
+	var svg = d3.select("#"+ticker).append("svg")
 	.attr("id", ticker)
 	.attr("width", width + margin.left + margin.right)
 	.attr("height", height + margin.top + margin.bottom)
@@ -40,11 +58,11 @@ var displayGraph = function(error, ticker, data) {
 	data.forEach(function(d) {
 		d.Date = new Date(d.Date);
 		d.Close = +d.Close;
-		console.log(d);
 	});
 
 	x.domain(d3.extent(data, function(d) { return d.Date; }));
-	y.domain([0, d3.max(data, function(d) { return d.Close; })]);
+	y.domain([d3.min(data, function(d) { return d.Close; }),
+						d3.max(data, function(d) { return d.Close; })]);
 
 	svg.append("path")
 	.datum(data)
@@ -66,4 +84,12 @@ var displayGraph = function(error, ticker, data) {
 	.style("text-anchor", "end")
 	.text("Price ($)");
 
-}
+	var $change = $("<td></td>");
+	$change.text(ticker+": "+getPercentIncrease(data) + "%");
+	$trow.append($change);
+
+
+
+
+
+};
