@@ -31,16 +31,23 @@
 
   <div class="jumbotron">
   <p>recent Magic Formula stock performance</p>
-  <input id="ticker"><button name="submit">Graph</button>
+  <input id="ticker" size="100"><button name="submit">Graph</button>
+  <!--
+  <input id="fromDate" type="date">
+  <input id="toDate" type="date">
+  -->
   </div>
-
-  <table>
-  </table>
 
   <div id="container"></div>
 
   <script>
     $(document).ready(function(){
+
+      // default date boxes
+      // var to = new Date();
+      // var from = new Date(new Date().setYear(to.getFullYear()-1));
+      // $("#toDate").val(getDateString(to));
+      // $("#fromDate").val(getDateString(from));
 
       scrapeMagic();
 
