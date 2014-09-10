@@ -31,7 +31,7 @@ angular.module('curates.services', [])
     validateUser: validateUser
   };
 })
-.controller('userMangamentController', function($scope, userManagement) {
+.controller('userManagementController', function($scope, userManagement) {
   $scope.user = userManagement.user;
   $scope.loggedIn = userManagement.loggedIn;
   $scope.login = function(name) {
