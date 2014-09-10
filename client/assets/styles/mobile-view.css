@@ -1,6 +1,5 @@
 .index {
-/*  background-color: rgb(245, 70, 70);
-*/}
+}
 .collections-search {
   margin: 0;
   float: none;
@@ -46,11 +45,11 @@
   margin-left: 20.19792%;
 }
 .collection .collection-box {
-  height: 16rem;
+  height: 19rem;
   width: 17rem;
 }
 .collection .collection-text {
-  margin-top: -16rem;
+  margin-top: -18rem;
   padding-left: 3%;
 }
 .collection .votes-user {
@@ -64,4 +63,8 @@
   margin-top: 0.5rem;
   margin-right: 0;
   margin-left: 13.023%;
+}
+.collection-username {
+  display: block;
+  margin-bottom: 5%;
 }
