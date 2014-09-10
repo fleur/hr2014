@@ -1308,4 +1308,4 @@ body {
   .single--new-link .checkbox-label-2 {
     margin-left: 3.03734%;
   }
-}
+/*Was the trailing curly brace neccessary? there was a '}' here*/
