@@ -658,7 +658,34 @@ body {
   color: rgb(0, 0, 0);
 }
 
+.single-collection-votes-user {
+  position: relative;
+  float: left;
+  clear: both;
+  z-index: 14;
+  width: 15.8200385694%;
+  height: 5.563rem;
+  margin-top: 1px;
+}
 
+.single-collection-votes-text {
+  position: relative;
+  float: left;
+  z-index: 10;
+  width: 100.1341081805%;
+  min-height: 2.313rem;
+  margin: 0.313rem 0 0 -0.15646%;
+  font: 400 1.875rem/1.38 Arial;
+  text-align: center;
+  color: rgb(0, 0, 0);
+  margin-top: 3px;
+margin-bottom: -5px;
+}
+
+.single-collection-votes-text span {
+  font-size: 1.25rem;
+  color: rgb(254, 254, 254);
+}
 
 .link-votes-user {
   position: relative;

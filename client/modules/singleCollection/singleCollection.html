@@ -3,16 +3,14 @@
     <a ng-href="#/{{ collection.url }}/edit" ng-if="isUser"><button class="edit-btn" ng-if="isUser">Edit</button></a>
 
  
-  <div class="collection-box collection-box-1"></div>
-  <div class="votes-user votes-user-2 clearfix">
-    <div class="votes-box votes-box-2 clearfix">
-      <p class="votes-text votes-text-2">
+  <div class="single-collection-votes-user clearfix">
+    <div class="votes-box clearfix">
+      <p class="single-collection-votes-text">
         <span>{{collection.stars}}</span>
       </p>
       <p class="vote-num">
         <span>votes</span>
       </p>
-      <p class="vote-label"></p>
     </div>
   </div>
 
@@ -58,6 +56,16 @@
                   ng-if="!link.voted">
             Upvote
           </button>
+<!--           <img src="assets/images/thumb_up.png"
+                 style="width:16px;height:16px"
+                 ng-click="upVoteLink($parent.$index)" 
+                 ng-if="notYetUpvoted">
+          </img>
+            <img src="assets/images/thumb_down.png"
+                 style="width:16px;height:16px"
+                 ng-click="downVoteLink($parent.$index)" 
+                 ng-if="notYetUpvoted">
+          </img> -->
           <span class="link-description-text" 
                 style="margin-top: .5rem;" 
                 ng-if="link.voted">
