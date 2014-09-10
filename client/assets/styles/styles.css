@@ -89,6 +89,12 @@ body {
   height: 3.5rem;
 }
 
+.link-btn-container .upvote-btn {
+    width: 134.2857142857%;
+    margin-left: -21.38393%;
+  }
+
+
 .checkbox {
   display: block;
   float: left;
@@ -679,12 +685,16 @@ body {
   text-align: center;
   color: rgb(0, 0, 0);
   margin-top: 3px;
-margin-bottom: -5px;
+  margin-bottom: -5px;
 }
 
 .single-collection-votes-text span {
   font-size: 1.25rem;
   color: rgb(254, 254, 254);
+}
+
+.link-vote-container {
+
 }
 
 .link-votes-user {

@@ -21,8 +21,18 @@
 
     <div class="btn-container clearfix">
       <button class="clone-btn" ng-if="!isUser" ng-click="clone()">Clone</button>
-      <button class="upvote-btn" ng-click="upVote()" ng-if="notYetUpvoted">Upvote</button>
-      <span class="link-description-text" style="margin-top: .5rem;" ng-if="!notYetUpvoted">Liked!</span>
+          <img src="assets/images/thumb_up.png"
+                 style="width:16px;height:16px;"
+                 ng-click="upVote()" 
+                 ng-if="notYetUpvoted">
+          </img>
+            <img src="assets/images/thumb_down.png"
+                 style="width:16px;height:16px"
+                 ng-click="downVote()" 
+                 ng-if="notYetUpvoted">
+          </img>
+<!--           <button class="upvote-btn" ng-click="upVote()" ng-if="notYetUpvoted">Upvote</button>
+ -->      <span class="link-description-text" style="margin-top: .5rem;" ng-if="!notYetUpvoted">Voted!</span>
     </div>
   </div>
   <div class="single-link" ng-repeat="link in collection.links">
@@ -50,26 +60,20 @@
         <p class="link-description-text">{{ link.description }}</p>
 
         <!-- upvote button -->
-        <div class="link-btn-container clearfix">
-          <button class="upvote-btn" 
-                  ng-click="upVoteLink($parent.$index)" 
-                  ng-if="!link.voted">
-            Upvote
-          </button>
-<!--           <img src="assets/images/thumb_up.png"
-                 style="width:16px;height:16px"
+        <div class="link-btn-container">
+          <img src="assets/images/thumb_up.png"
+                 style="width:16px;height:16px;"
                  ng-click="upVoteLink($parent.$index)" 
-                 ng-if="notYetUpvoted">
+                 ng-if="!link.voted">
           </img>
             <img src="assets/images/thumb_down.png"
                  style="width:16px;height:16px"
                  ng-click="downVoteLink($parent.$index)" 
-                 ng-if="notYetUpvoted">
-          </img> -->
+                 ng-if="!link.voted">
+          </img>
           <span class="link-description-text" 
-                style="margin-top: .5rem;" 
                 ng-if="link.voted">
-            Liked!
+            Voted!
           </span>
         </div>
         <!-- upvote button -->
