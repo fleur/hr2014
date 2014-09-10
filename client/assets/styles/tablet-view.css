@@ -1,3 +1,25 @@
 .index {
-  background-color: yellow;
+}
+.collection-description {
+  max-height: 3rem;
+}
+a {
+  font-size: 80%;
+}
+span {
+  font-size: 80%;
+}
+.votes-user .votes-box {
+  padding-top: 6%;
+}
+.collections-search {
+  width: 69.25%;
+}
+.collections-search ._button {
+  width: 23.210459%;
+}
+.collections-search ._input {
+  width: 61.680272%;
+  margin-top: .965rem;
+  margin-left: .5%;
 }

@@ -996,7 +996,7 @@ body {
   font-size: 1.25rem;
 }
 
-@media(max-width: 600px) {
+/*@media(max-width: 600px) {*/
   .btn-container .clone-btn,
   .btn-container .upvote-btn {
     width: 134.2857142857%;

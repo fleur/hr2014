@@ -12,4 +12,6 @@ angular.module('curates', [
 .config(function($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise('/');
 
+
+
 });
