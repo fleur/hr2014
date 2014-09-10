@@ -6,25 +6,23 @@
   <link rel="stylesheet" href="assets/styles/standardize.css">
   <link rel="stylesheet" href="assets/styles/linkview-grid.css">
   <link rel="stylesheet" href="assets/styles/styles.css">
-<body ng-app="curates" class="body index clearfix">
-<script>
-      window.fbAsyncInit = function() {
-        FB.init({
-          appId      : '355043514650515',
-          xfbml      : true,
-          version    : 'v2.0',
-          status: true,
-        });
-      };
+  <meta name="viewport" content="width=device-width"/>
 
-      (function(d, s, id){
-         var js, fjs = d.getElementsByTagName(s)[0];
-         if (d.getElementById(id)) {return;}
-         js = d.createElement(s); js.id = id;
-         js.src = "//connect.facebook.net/en_US/sdk.js";
-         fjs.parentNode.insertBefore(js, fjs);
-       }(document, 'script', 'facebook-jssdk'));
-</script>
+
+
+
+
+  <link rel="stylesheet" type="text/css" media="only screen and (max-width: 480px)" href="assets/styles/mobile-view.css">
+  
+  <link rel="stylesheet" type="text/css" media="only screen and (min-width: 481px) and (max-width: 1024px)" href="assets/styles/tablet-view.css">
+
+
+
+
+
+<body ng-app="curates" class="body index clearfix">
+
+
   <script src="lib/underscore/underscore.js"></script>
   <script src="lib/angular/angular.js"></script>
   <script src="lib/angular-ui-router/release/angular-ui-router.js"></script>
@@ -38,7 +36,9 @@
   <script src="services/collectionFactory.js"></script>
   <script src="directives/collectionMeta.js"></script>
   <script src="modules/createCollection/createCollection.js"></script>
+
   <nav class="navbar"></nav>
+
   <p class="logotext logotext-1"><a ng-href='/'><span>Curates</span></a></p>
   <div class="signin clearfix" ng-controller="userMangamentController">
     <user-management />
