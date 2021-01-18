@@ -1,0 +1,21 @@
+[root]
+name = "cli"
+version = "0.0.1"
+dependencies = [
+ "memstream 0.0.1 (git+https://github.com/seanchen1991/rust-memstream.git#97da06df6180cc849c25f38cb1572e1ded5574c9)",
+ "rustache 0.0.1 (git+https://github.com/rustache/rustache.git#236d28611a6ceca45ad6d1f2f38014c0606f3960)",
+]
+
+[[package]]
+name = "memstream"
+version = "0.0.1"
+source = "git+https://github.com/seanchen1991/rust-memstream.git#97da06df6180cc849c25f38cb1572e1ded5574c9"
+
+[[package]]
+name = "rustache"
+version = "0.0.1"
+source = "git+https://github.com/rustache/rustache.git#236d28611a6ceca45ad6d1f2f38014c0606f3960"
+dependencies = [
+ "memstream 0.0.1 (git+https://github.com/seanchen1991/rust-memstream.git#97da06df6180cc849c25f38cb1572e1ded5574c9)",
+]
+
