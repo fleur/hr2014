@@ -1,0 +1,9 @@
+<div id='container'>
+  <form name="shortenForm" ng-submit="submitForm(shortenForm.$valid)" novalidate>
+    <input type='url' name="input" ng-model="url" class="form-control" required>
+    <span class=error ng-show="shortenForm.input.$error.required && !shortenForm.input.$pristine">A URL is required.</span>
+    <span class="error" ng-show="shortenForm.input.$error.url">
+    Not valid url!</span>    <button type="submit">Shorten</button>
+  </form>
+</div>
+

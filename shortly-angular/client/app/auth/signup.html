@@ -1,0 +1,15 @@
+<div id='signup'>
+  <h1>signup</h1>
+  <form name="signupForm" ng-submit='signup()'>
+    <input type='text' name="name" ng-model='user.username' ng-required="true" ng-minlength="5" ng-maxlength="12">
+    <p class=error ng-show="signupForm.name.$error.required && !signupForm.name.$pristine">Please enter a username.</p>
+    <p class=error ng-show="signupForm.name.$error.minlength">Please enter a username greater than 5 characters.</p>
+    <p class=error ng-show="signupForm.name.$error.maxlength">Please enter a username between 5 and 12 characters.</p>
+    <input type="password" name="password" ng-model='user.password' ng-required="true" ng-minlength="6" ng-maxlength="9">
+    <p class="error" ng-show="signupForm.password.$error.required && !signupForm.password.$pristine">Please enter a password.</p>
+    <p class=error ng-show="signupForm.password.$error.minlength">Please enter a password greater than 6 characters.</p>
+    <p class=error ng-show="signupForm.password.$error.maxlength">Please enter a password between 6 and 9 characters.</p>
+    <button>signup</button>
+  </form>
+  <a href="#/signin">Already have an account? Signin ...</a>
+</div>

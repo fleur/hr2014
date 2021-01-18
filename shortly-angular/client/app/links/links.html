@@ -1,0 +1,16 @@
+<div id='container'>
+  <input type="text" name="search" ng-model="search.title" placeholder="Search...">
+  <table>
+  <tr><th width='40%' align="left">Site</th>
+      <th align="left">Shortly</th>
+      <th align="left">Visits</th>
+  </tr>
+   <tr ng-repeat="link in data.links | filter:search | orderBy:'visits': 'reverse'">
+   <td width="40%">{{ link.title }}</td>
+   <td>
+      <a href="{{ link.base_url }}/api/links/{{ link.code }}">{{ link.base_url }}/api/links/{{ link.code }}</a>
+   </td>
+   <td>{{ link.visits }}</td>
+   </tr>
+  </table>
+</div>
