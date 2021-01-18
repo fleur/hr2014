@@ -1,0 +1,7 @@
+{
+  "name": "blackjack",
+  "main": "index.html",
+  "scripts": {
+    "start": "nodewebkit"
+  }
+}
