@@ -1,0 +1,54 @@
+<div id="navbar" class="navbar navbar-default navbar-static-top" ng-controller="NavbarCtrl">
+  <div class="container">
+    <div class="navbar-header">
+      <a href="/" id="navbar-brand">Crave</a>
+      <p class="navbar-subheader">Delivering What You CRAVE!<p>
+    </div>
+    <div ng-controller="SearchCtrl" class="nav-buttons">
+      
+
+
+
+
+      <div class="input-group" id="search-input-group">
+        <input value="search" type="text" class="form-control" id="search-input-box">
+        <span class="input-group-btn">
+          <button class="btn btn-default" id="navbar-search-button" ng-click="requestFunction()" ui-sref="search">Search</button>
+        </span>
+      </div>
+    
+
+
+    </div>
+
+
+
+      <div class="input-group" id="location-input-group">
+        <input value="location" type="text" class="form-control" id="location-input-box">
+        <span class="input-group-btn">
+          <button class="btn btn-default" id="navbar-location-button" type="button">Location</button>
+        </span>
+      </div>
+
+
+      <div ng-controller="ModalCtrl" class="nav-buttons">
+          <script type="text/ng-template" id="ModalContent.html">
+              <div class="modal-header">
+                  <h3 class="modal-title">Login/Sign Up</h3>
+              </div>
+              <div class="modal-body">
+                <p>Login with:</p> <!--This is where the user will login/sign up.-->
+                <p>Facebook</p>
+                <p>Google+</p>
+                <p>Twitter</p>
+              </div>
+              <div class="modal-footer">
+                  <button class="btn btn-primary" ng-click="ok()">OK</button>
+                  <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+              </div>
+          </script>
+
+          <button class="login-button btn btn-default" ng-click="open()">Login/Sign Up</button>
+      </div>
+  </div>
+</div>

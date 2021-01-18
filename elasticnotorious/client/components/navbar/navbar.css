@@ -1,0 +1,44 @@
+#navbar {
+  position: fixed;
+  width: 100%;
+  background-color: rgba(68, 68, 68, .6);
+  border: none;
+  height: 8%;
+}
+#navbar-brand {
+  color: #FFF9F9;
+  float: left;
+  height: 50px;
+  padding: 15px 15px;
+  font-size: 18px;
+  line-height: 20px;
+}
+.navbar-subheader {
+  color: rgb(248, 231, 162);
+  margin-top: 5%;
+}
+.nav-buttons {
+  display: inline;
+}
+.login-button {
+  float: right;
+  margin-top: .7%;
+}
+.input-group {
+  display: inline;
+}
+.form-control {
+  width: 200px;
+}
+#location-input-box {
+  width: 200px;
+}
+#search-input-box {
+  width: 200px;
+}
+#location-input-group {
+  
+}
+#search-input-group {
+
+}

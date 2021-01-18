@@ -1,0 +1,77 @@
+<div class="row">
+  <div ng-include="'components/navbar/navbar.html'"></div>
+</div>
+
+<div id="createDishContainer">
+<div class="row">
+<div id="form" class="col-md-8" ng-controller="ExampleController">
+  <form novalidate name="createDishForm" class="createDishForm" ng-submit="update(data)" ng-class="{ submitted: submitted }">
+    <div class="row">
+      <div class="col-md-3">Rating:</div>
+      <div class="col-md-3">
+        <rating ng-model="data.rating"
+                name="rating"
+                ng-class="{ 'has-error' : createDishForm.rating.$invalid && !createDishForm.rating.$pristine }"
+                max="5"
+                readonly="false"
+                on-hover="hoveringOver(value)"
+                on-leave="overStar = null" ng-required="true">
+        </rating>
+      </div>
+      <div class="col-md-3">
+          <span class="validation-message"
+                ng-show="submitted && createDishForm.restaurant_name.$error.required">
+            Required!
+          </span>
+      </div> 
+    </div>
+     <div class="row">
+      <div class="col-md-3">Restaurant Name:</div> 
+      <div class="col-md-3">
+        <input type="text" 
+               name="restaurant_name" 
+               ng-model="data.restaurant_name" 
+               ng-class="{ 'has-error' : createDishForm.restaurant_name.$invalid && !createDishForm.restaurant_name.$pristine }" ng-required="true"/><br />
+      </div>
+      <div class="col-md-3">
+          <span class="validation-message" 
+                ng-show="submitted && createDishForm.restaurant_name.$error.required">
+            Required!
+          </span>
+      </div> 
+    </div>
+    <div class="row">
+      <div class="col-md-3">Resturant Address:</div>  
+      <div class="col-md-3">
+        <input type="text" name="restaurant_address" ng-model="data.restaurant_address" ng-class="{ 'has-error' : createDishForm.restaurant_address.$invalid && !createDishForm.restaurant_address.$pristine }" ng-required="true"/><br />
+      </div>
+      <div class="col-md-3">
+        <span class="validation-message" 
+              ng-show="submitted && createDishForm.restaurant_address.$error.required">Required!
+        </span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">Dish Name:</div> 
+      <div class="col-md-3">
+        <input type="text" name="dish_name" ng-model="data.dish_name" ng-class="{ 'has-error' : createDishForm.dish_name.$invalid && !createDishForm.dish_name.$pristine }" ng-required="true"/><br />
+      </div>
+      <div class="col-md-3">
+        <span class="validation-message" ng-show="submitted && createDishForm.dish_name.$error.required">Required!</span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3"></div>
+      <div class="col-md-3">
+        <button>SAVE</button>
+
+<!--         <button ng-submit="update(data)">SAVE</button>
+ -->      </div>
+    </div>
+  </form>
+<!--   <pre>form = {{data | json}}</pre>
+  <pre>master = {{master | json}}</pre> -->
+</div>
+</div>
+</div>
+</div>
