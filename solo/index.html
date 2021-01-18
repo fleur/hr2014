@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+    <style>
+
+      body {
+        font: 10px sans-serif;
+      }
+
+      .axis path,
+      .axis line {
+        fill: none;
+        stroke: #000;
+        shape-rendering: crispEdges;
+      }
+
+      .area {
+        fill: steelblue;
+      }
+    </style>
+    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+  <script src="http://d3js.org/d3.v3.js"></script>
+  <script src="bower_components/jquery/dist/jquery.js"></script>
+  <script src="bower_components/underscore/underscore.js"></script>
+  <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="query.js"></script>
+  <script src="display.js"></script>
+
+  <div class="jumbotron">
+  <p>recent Magic Formula stock performance</p>
+  <input id="ticker" size="100"><button name="submit">Graph</button>
+  <!--
+  <input id="fromDate" type="date">
+  <input id="toDate" type="date">
+  -->
+  </div>
+
+  <div id="container"></div>
+
+  <script>
+    $(document).ready(function(){
+
+      // default date boxes
+      // var to = new Date();
+      // var from = new Date(new Date().setYear(to.getFullYear()-1));
+      // $("#toDate").val(getDateString(to));
+      // $("#fromDate").val(getDateString(from));
+
+      scrapeMagic();
+
+     //set up listener to get stock tickers for graphing
+     $("button").on('click', function() {
+
+      var ticker = $("#ticker").val().split(",").map(function(value) { return value.trim(); });
+      //$("table").html("");
+      $("#container").html("");
+      ticker.forEach(function(ticker) {
+        getData(ticker, displayGraph);
+      });
+
+
+     });
+  });
+  </script>
+</body>
