@@ -1,0 +1,70 @@
+.index {
+}
+.collections-search {
+  margin: 0;
+  float: none;
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100%;
+  margin-bottom: 3rem;
+}
+.collections-search ._button {
+  position: absolute;
+  top: 0.6rem;
+  left: 0.6rem;
+  margin: 0;
+  width: 9rem;
+}
+.collections-search ._input {
+  position: absolute;
+  left: 162;
+  margin: 0;
+  top: 11;
+  width: 56%;
+}
+.logotext {
+  width: 39.1979166666%;
+  top: 7.5rem;
+  margin-left: 15%;
+}
+.signin {
+  left: 18rem;
+  top: 5rem;
+}
+#signin ._button {
+  width: 8rem;
+  position: relative;
+  left: -17.59rem;
+  top: -0.9rem;
+}
+.single-collection {
+  width: 130.5%;
+  height: 7rem;
+  margin-top: 5.563rem;
+  margin-left: 20.19792%;
+}
+.collection .collection-box {
+  height: 19rem;
+  width: 17rem;
+}
+.collection .collection-text {
+  margin-top: -18rem;
+  padding-left: 3%;
+}
+.collection .votes-user {
+  margin-top: -10.312rem;
+}
+.votes-user .votes-box {
+  float: left;
+  width: 130.25381%;
+  height: 63%;
+  padding-top: 11%;
+  margin-top: 0.5rem;
+  margin-right: 0;
+  margin-left: 13.023%;
+}
+.collection-username {
+  display: block;
+  margin-bottom: 5%;
+}
