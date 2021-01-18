@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Object Dance Party</title>
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+    <script src="lib/jquery.js"></script>
+    <script src="src/dancer.js"></script>
+    <script src="src/blinkyDancer.js"></script>
+    <script src="src/superHeroDancer.js"></script>
+    <script src="src/batmanDancer.js"></script>
+  </head>
+  <body>
+    <div class="topbar">
+      <span class="title">object dance party</span>
+      <a href="#" class="lineupButton">lineup!</a>
+      <a href="#" class="addDancerButton" data-dancer-maker-function-name="BlinkyDancer">add a blinky dancer</a>
+      <a href="#" class="addDancerButton" data-dancer-maker-function-name="SuperheroDancer">add a superhero dancer</a>
+      <a href="#" class="addDancerButton" data-dancer-maker-function-name="BatmanDancer">add a batman dancer</a>
+    </div>
+    <script src="src/init.js"></script>
+    <script>
+      $( document ).ready(function() {
+        $( ".lineupButton" ).on( "click", function() {
+          for (var i = 0; i < window.dancers.length; i++) {
+            window.dancers[i].lineup();
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
